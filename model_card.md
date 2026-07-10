@@ -1,111 +1,140 @@
 # 🎧 Model Card: Music Recommender Simulation
 
-## 1. Model Name  
+## 1. Model Name
 
-Give your model a short, descriptive name.  
-Example: **VibeFinder 1.0**  
-
----
-
-## 2. Intended Use  
-
-Describe what your recommender is designed to do and who it is for. 
-
-Prompts:  
-
-- What kind of recommendations does it generate  
-- What assumptions does it make about the user  
-- Is this for real users or classroom exploration  
+BeatMaxr
 
 ---
 
-## 3. How the Model Works  
+## 2. Intended Use
 
-Explain your scoring approach in simple language.  
+Describe what your recommender is designed to do and who it is for.
 
-Prompts:  
+What kind of recommendations does it generate
+It ranks a small catalog of songs by how closely each one matches a user's stated taste and returns the top few with short reasons.
 
-- What features of each song are used (genre, energy, mood, etc.)  
-- What user preferences are considered  
-- How does the model turn those into a score  
-- What changes did you make from the starter logic  
+What assumptions does it make about the user
+It assumes the user can describe their taste as a favorite genre and mood plus a few numeric targets, and that those numbers are on a 0 to 1 scale.
 
-Avoid code here. Pretend you are explaining the idea to a friend who does not program.
-
----
-
-## 4. Data  
-
-Describe the dataset the model uses.  
-
-Prompts:  
-
-- How many songs are in the catalog  
-- What genres or moods are represented  
-- Did you add or remove data  
-- Are there parts of musical taste missing in the dataset  
+Is this for real users or classroom exploration
+It is a classroom simulation for learning how recommenders work, not a production system for real listeners.
 
 ---
 
-## 5. Strengths  
+## 3. How the Model Works
 
-Where does your system seem to work well  
+Explain your scoring approach in simple language.
 
-Prompts:  
+What features of each song are used
+Each song has a genre, a mood, and numeric traits for energy, tempo, positivity, danceability, and how acoustic it sounds.
 
-- User types for which it gives reasonable results  
-- Any patterns you think your scoring captures correctly  
-- Cases where the recommendations matched your intuition  
+What user preferences are considered
+The model looks at your favorite genre and mood, your target energy, positivity, danceability, and tempo, and whether you like acoustic music.
 
----
+How does the model turn those into a score
+It awards points when a song matches your taste, counts some features more heavily than others, and averages everything into a single score between 0 and 1.
 
-## 6. Limitations and Bias 
-
-Where the system struggles or behaves unfairly. 
-
-Prompts:  
-
-- Features it does not consider  
-- Genres or moods that are underrepresented  
-- Cases where the system overfits to one preference  
-- Ways the scoring might unintentionally favor some users  
+What changes did you make from the starter logic
+The scoring now uses every numeric feature with its own weight and returns ranked reasons, instead of matching on genre and mood alone.
 
 ---
 
-## 7. Evaluation  
+## 4. Data
 
-How you checked whether the recommender behaved as expected. 
+Describe the dataset the model uses.
 
-Prompts:  
+How many songs are in the catalog
+There are 20 songs in the catalog.
 
-- Which user profiles you tested  
-- What you looked for in the recommendations  
-- What surprised you  
-- Any simple tests or comparisons you ran  
+What genres or moods are represented
+Genres range from pop, lofi, and rock to jazz, edm, metal, and orchestral, and moods include happy, chill, intense, melancholy, and euphoric.
 
-No need for numeric metrics unless you created some.
+Did you add or remove data
+No, it uses the original 20-song starter dataset.
 
----
-
-## 8. Future Work  
-
-Ideas for how you would improve the model next.  
-
-Prompts:  
-
-- Additional features or preferences  
-- Better ways to explain recommendations  
-- Improving diversity among the top results  
-- Handling more complex user tastes  
+Are there parts of musical taste missing in the dataset
+Yes, most genres appear only once, and there is nothing about artists, lyrics, era, or popularity.
 
 ---
 
-## 9. Personal Reflection  
+## 5. Strengths
 
-A few sentences about your experience.  
+Where does your system seem to work well
 
-Prompts:  
+User types for which it gives reasonable results
+It works best for mainstream listeners, such as pop or lofi fans, who have several matching songs to rank.
 
-- What you learned about recommender systems  
-- Something unexpected or interesting you discovered  
-- How this changed the way you think about music recommendation apps  
+Any patterns you think your scoring captures correctly
+It correctly rewards exact genre and mood matches and songs whose energy, positivity, and danceability are close to the user's targets.
+
+Cases where the recommendations matched your intuition
+A profile copied from a real song ranked that song first at about 0.99, and an acoustic-only profile put the most acoustic songs on top.
+
+---
+
+## 6. Limitations and Bias
+
+Where the system struggles or behaves unfairly.
+
+Features it does not consider
+It ignores artist, lyrics, era, popularity, and history, and it has no diversity control, so the top results can be near-duplicates.
+
+Genres or moods that are underrepresented
+Only pop and lofi have more than one song, so fans of niche genres like metal or jazz get just one real match.
+
+Cases where the system overfits to one preference
+A single heavy weight dominates everything, so weighting genre highly stacked all pop at the top, while weighting energy highly dropped every pop song.
+
+Ways the scoring might unintentionally favor some users
+It favors mainstream and average taste, and users who give fewer preferences get cleaner, more confident scores than users who describe themselves in detail.
+
+---
+
+## 7. Evaluation
+
+How you checked whether the recommender behaved as expected.
+
+Which user profiles you tested
+I ran 12 edge cases, including empty, single-preference, non-existent genre, case-mismatched, exact-match, out-of-range, contradictory, all-neutral, and acoustic-only profiles.
+
+What you looked for in the recommendations
+I checked that scores stayed sensible, that the empty profile did not crash, and that the top songs actually matched the stated taste.
+
+What surprised you
+Out-of-range inputs produced negative scores, and giving the model more preferences often produced weaker, less confident scores than giving it just one.
+
+Any simple tests or comparisons you ran
+I compared the same profile under different weights and confirmed that removing the mood preference and setting the mood weight to zero give the exact same ranking.
+
+---
+
+## 8. Future Work
+
+Ideas for how you would improve the model next.
+
+Additional features or preferences
+Add artist affinity, era, and popularity, and let users adjust the feature weights themselves.
+
+Better ways to explain recommendations
+Show how much each feature contributed to the score, not just which ones matched.
+
+Improving diversity among the top results
+Penalize near-duplicate songs so the top list covers more genres and artists.
+
+Handling more complex user tastes
+Support multiple favorite genres and fuzzy matching so related genres share credit.
+
+---
+
+## 9. Personal Reflection
+
+A few sentences about your experience.
+
+What you learned about recommender systems
+I learned that small scoring choices, especially the feature weights, have a large effect on what gets recommended.
+
+Something unexpected or interesting you discovered
+I was surprised that giving the system more information can actually make its scores less confident.
+
+How this changed the way you think about music recommendation apps
+It made me realize how much a recommender's behavior reflects its dataset and hidden weighting choices rather than pure taste.

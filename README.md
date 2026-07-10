@@ -149,8 +149,13 @@ Tempo 120
 Use this section to document the experiments you ran. For example:
 
 - What happened when you changed the weight on genre from 2.0 to 0.5
+Lowering the genre weight let songs from other genres outrank exact genre matches, so the top list became more mixed and leaned more on energy and mood.
+
 - What happened when you added tempo or valence to the score
+Using valence and tempo made the scores smoother and helped break ties between songs of the same genre, though tempo mattered little because its weight is small.
+
 - How did your system behave for different types of users
+Mainstream users like pop fans got several strong matches, while niche users like metal fans got one real match and then songs picked by unrelated numeric closeness.
 
 ---
 
@@ -161,8 +166,13 @@ Summarize some limitations of your recommender.
 Examples:
 
 - It only works on a tiny catalog
+With only 20 songs and most genres appearing once, there are very few options for any given taste.
+
 - It does not understand lyrics or language
+It only compares numeric traits and category labels, so it misses meaning, tone, and language entirely.
+
 - It might over favor one genre or mood
+Because genre and mood carry the most weight, a single strong category match can dominate the whole ranking.
 
 You will go deeper on this in your model card.
 
@@ -178,3 +188,7 @@ Write 1 to 2 paragraphs here about what you learned:
 
 - about how recommenders turn data into predictions
 - about where bias or unfairness could show up in systems like this
+
+Working on this showed me that a recommender turns data into predictions by scoring each item against the user with simple math, not real understanding. Every song becomes a set of numbers, the model measures how close those numbers are to the user's preferences, weights each feature by how important we decide it is, and then just sorts by the result. Seeing how much the output changed when I adjusted the weights made it clear that the "prediction" is really a reflection of the choices the designer bakes into the scoring.
+
+That is also where bias and unfairness can creep in. The dataset only had a few genres represented more than once, so mainstream tastes got good matches while niche tastes did not, and the weighting meant a single feature could quietly dominate everyone's results. It made me realize that unfairness in these systems usually is not intentional; it comes from what data you have and which features you decide to reward.
