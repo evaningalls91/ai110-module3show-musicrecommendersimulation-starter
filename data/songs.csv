@@ -9,3 +9,13 @@ id,title,artist,genre,mood,energy,tempo_bpm,valence,danceability,acousticness
 8,Night Drive Loop,Neon Echo,synthwave,moody,0.75,110,0.49,0.73,0.22
 9,Focus Flow,LoRoom,lofi,focused,0.40,80,0.59,0.60,0.78
 10,Rooftop Lights,Indigo Parade,indie pop,happy,0.76,124,0.81,0.82,0.35
+11,Fading Polaroids,Ash Meridian,indie,melancholy,0.30,76,0.22,0.40,0.74
+12,Neon Stampede,Pulse Theory,edm,euphoric,0.95,128,0.92,0.94,0.04
+13,Cassette Summer,The Meadowlarks,folk,nostalgic,0.45,98,0.68,0.52,0.80
+14,Velvet Hours,Cielo Rose,r&b,romantic,0.48,92,0.74,0.66,0.35
+15,Cloud Cartography,Sable Skies,ambient,dreamy,0.25,68,0.58,0.33,0.88
+16,Broken Circuit,Ironjaw,metal,angry,0.97,160,0.20,0.45,0.03
+17,First Light Ahead,Horizon Line,pop,hopeful,0.68,116,0.83,0.71,0.28
+18,Shadow Ledger,Vantablack,trip hop,mysterious,0.44,88,0.35,0.58,0.40
+19,Bubblegum Circuit,Sticker Club,electropop,playful,0.80,122,0.88,0.85,0.12
+20,Summit Fanfare,Grand Ascent,orchestral,triumphant,0.85,104,0.79,0.40,0.55
